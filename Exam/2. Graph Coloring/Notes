@@ -1,0 +1,41 @@
+==   no two adjacent vertices have the same colour
+==   the chromatic number of G => The minimum number of colours necessary to color the graph G
+==   Determining a chromatic number of a graph is an NP-complete problem
+
+
+
+
+==   Algorithms:
+    *   Sequential Coloring
+        - χ(G) ≤ max (min(i, deg() + 1))    =>      number of chromatic colours
+
+    *   Brelaz 
+        -   Uses saturation degree of v (Number of different colours used to colour v’s neighbours) 
+            & uncolored degree (Number of uncoloured neighbours of v )
+        -   saturation degree intially = 0
+        -   uncolored degree = deg(v)
+        -   deg(v) => number of adjacent vertices of v
+        -   useful when many vertices have the same degree
+
+        ->   sequentialColoringAlgorithm(graph = (V, E))
+                sort vertices in descending order by deg(v): v1, v2, ..., v|V|;
+                put colors in a certain order c1, c2, ..., ck;
+                for i = 1 to |V|
+	                j = the smallest index of color that does not appear in any neighbor of vi;
+	                color(vi) = cj;
+
+
+        ->   BrelazColoringAlgorithm(graph)
+                for each vertex v
+                    saturationDeg(v) = 0; 	// the number of different colors used to color neighbors of v;
+                    uncoloredDeg(v) = deg(v); 	// the number of uncolored vertices adjacent to v;
+                put colors in a certain order c1, c2, ..., ck;
+                while not all vertices are processed
+                    v = a vertex with maximum uncolored degree out of the vertices with highest saturation degree;
+                    j = the smallest index of color that does not appear in any neighbor of v;
+                    for each uncolored vertex u adjacent to v
+                        if no vertex adjacent to u is assigned color cj
+                            saturationDeg(u)++;
+                        uncoloredDeg(u)--;
+                    color(v) = cj;
+
